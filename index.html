@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="theme-color" content="#06060b">
+    <meta name="description"
+        content="Discover music that sounds exactly like your favorite songs. Type in any track and instantly get a tailored playlist of similar music. Free, no account required.">
+    <meta name="google-site-verification" content="7NMTLm5qD8n9FwWkEM1eXK6FZDpFcUQ5dwIrUMe3Exo" />
+    <title>SoundMatch</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+
+    <div class="dynamic-bg" id="dynamicBg"></div>
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+    <div class="noise-overlay"></div>
+
+    <nav class="navbar">
+        <div class="logo">
+            <i class="fas fa-compact-disc fa-spin" style="animation-duration: 4s;"></i> soundmatch
+        </div>
+        <div class="nav-controls">
+            <button class="nav-btn" onclick="location.reload()" style="display:none;" id="resetBtn">
+                <i class="fas fa-search"></i> <span class="btn-text">Search</span>
+            </button>
+        </div>
+    </nav>
+
+    <section class="search-section" id="searchSection">
+        <div class="search-card">
+            <h1>Find Your <span class="text-gradient">Unknown Favorites</span></h1>
+
+            <div class="input-container">
+                <div class="input-wrapper">
+                    <i class="fas fa-music"></i>
+                    <input type="text" id="songInput" placeholder="Song Title">
+                </div>
+                <div class="input-wrapper">
+                    <i class="fas fa-user"></i>
+                    <input type="text" id="artistInput" placeholder="Artist Name">
+                </div>
+            </div>
+
+            <button class="primary-action-btn" onclick="app.startDiscovery()">
+                Start Discovery <i class="fas fa-arrow-right"></i>
+            </button>
+            <div class="status-msg" id="status" role="status"></div>
+        </div>
+
+        <footer class="site-footer">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <div class="footer-logo">
+                        <i class="fas fa-compact-disc"></i> SoundMatch
+                    </div>
+                    <p class="footer-tagline">Discover music that sounds like your favorite songs. Free, no account
+                        required.</p>
+                </div>
+                <div class="footer-links">
+                    <h4>Quick Links</h4>
+                    <a href="about.html">What is SoundMatch?</a>
+                    <a href="mailto:soundmatchweb@gmail.com">Contact</a>
+                </div>
+                <div class="footer-links">
+                    <h4>Legal</h4>
+                    <a href="privacy.html">Privacy Policy</a>
+                    <a href="terms.html">Terms of Use</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 SoundMatch. All rights reserved.</p>
+            </div>
+        </footer>
+    </section>
+
+    <main class="app-layout" id="appLayout" inert>
+
+        <section class="panel library-panel">
+            <div class="panel-header mobile-toggle" onclick="toggleSection('libraryNav', 'libIcon')">
+                <h3>LIBRARY <i class="fas fa-chevron-down toggle-icon" id="libIcon"></i></h3>
+            </div>
+
+            <div class="library-nav" id="libraryNav">
+                <div class="nav-item" onclick="app.loadPlaylist('dailymix')">
+                    <div class="nav-icon gradient-1"><i class="fas fa-bolt"></i></div>
+                    <span>Daily Mix</span>
+                </div>
+                <div class="nav-item" onclick="app.loadPlaylist('liked')">
+                    <div class="nav-icon gradient-2"><i class="fas fa-heart"></i></div>
+                    <span>Liked Songs</span>
+                </div>
+                <div class="nav-item" onclick="app.loadPlaylist('history')">
+                    <div class="nav-icon gradient-3"><i class="fas fa-history"></i></div>
+                    <span>History</span>
+                </div>
+            </div>
+
+            <div class="panel-header sub-header">
+                <h3 class="mobile-toggle" onclick="toggleSection('playlistList', 'plIcon')">
+                    PLAYLISTS <i class="fas fa-chevron-down toggle-icon" id="plIcon"></i>
+                </h3>
+                <button class="icon-btn" onclick="app.createPlaylistPrompt()" title="Create Playlist">
+                    <i class="fas fa-plus"></i>
+                </button>
+            </div>
+
+            <div class="playlist-list scrollable" id="playlistList">
+                </div>
+        </section>
+
+        <section class="player-panel">
+            <div class="album-art-container">
+                <img id="displayImage" src="" alt="Album Art" class="album-art">
+                <div class="art-shadow"></div>
+                <button class="play-fab" id="playBtn" onclick="app.toggleAudio()">
+                    <i class="fas fa-play"></i>
+                </button>
+            </div>
+
+            <div class="track-info">
+                <h2 id="displayTitle">Song Title</h2>
+                <h3 id="displayArtist">Artist Name</h3>
+            </div>
+
+            <div class="match-badge-container">
+                <div class="match-score-pill">
+                    <span id="displayMatch">90%</span> MATCH
+                </div>
+            </div>
+
+            <div class="track-badges">
+                <span class="badge vibe" id="displayVibe">✨ VIBE</span>
+                <span class="badge genre" id="displayGenre">#GENRE</span>
+            </div>
+
+            <div class="player-controls">
+                <button class="ctrl-btn secondary" onclick="app.prevSong()" aria-label="Previous">
+                    <i class="fas fa-step-backward"></i>
+                </button>
+                <button class="ctrl-btn primary" onclick="app.toggleLike()" id="likeBtn" aria-label="Like">
+                    <i class="far fa-heart"></i>
+                </button>
+                <button class="ctrl-btn secondary" onclick="app.nextSong()" aria-label="Next">
+                    <i class="fas fa-step-forward"></i>
+                </button>
+                <button class="ctrl-btn secondary" onclick="app.showPlaylistPicker()" id="addToPlaylistBtn"
+                    aria-label="Add to Playlist">
+                    <i class="fas fa-plus-circle"></i>
+                </button>
+            </div>
+
+            <div class="playlist-picker" id="playlistPicker" style="display:none;">
+                <div class="picker-header">
+                    <span>Add to playlist</span>
+                    <button class="icon-btn" onclick="app.hidePlaylistPicker()"><i class="fas fa-times"></i></button>
+                </div>
+                <div class="picker-list" id="pickerList"></div>
+                <button class="picker-new-btn" onclick="app.createAndAddToPlaylist()">
+                    <i class="fas fa-plus"></i> New Playlist
+                </button>
+            </div>
+        </section>
+
+        <section class="panel related-panel">
+            <div class="panel-header" id="rightPanelHeader">
+                <h3 id="rightPanelTitle">SIMILAR</h3>
+                <button class="icon-btn" id="shuffleBtn" onclick="app.shufflePlaylist()" title="Shuffle"
+                    style="display:none;">
+                    <i class="fas fa-random"></i>
+                </button>
+            </div>
+            <div class="related-list" id="relatedList">
+                <div class="placeholder-text">Loading related tracks...</div>
+            </div>
+        </section>
+
+    </main>
+
+    <script src="playlist_manager.js"></script>
+    <script src="app.js"></script>
+    <script>
+        function toggleSection(contentId, iconId) {
+            // Only trigger the dropdown effect on mobile/tablets
+            if (window.innerWidth > 1024) return; 
+            
+            const content = document.getElementById(contentId);
+            const icon = document.getElementById(iconId);
+            
+            if (content.style.display === 'none') {
+                content.style.display = 'flex';
+                icon.style.transform = 'rotate(0deg)';
+            } else {
+                content.style.display = 'none';
+                icon.style.transform = 'rotate(-90deg)';
+            }
+        }
+
+        // Auto-collapse the menus when the page first loads on mobile
+        window.addEventListener('DOMContentLoaded', () => {
+            if(window.innerWidth <= 1024) {
+                document.getElementById('libraryNav').style.display = 'none';
+                document.getElementById('playlistList').style.display = 'none';
+                document.getElementById('libIcon').style.transform = 'rotate(-90deg)';
+                document.getElementById('plIcon').style.transform = 'rotate(-90deg)';
+            }
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>What is SoundMatch?</title>
+    <meta name="description"
+        content="Discover music that sounds exactly like your favorite songs. Type in any track and instantly get a tailored playlist of similar music. Free, no account required.">
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #0d0d1a;
+            color: rgba(255, 255, 255, 0.85);
+            line-height: 1.7;
+            min-height: 100vh;
+        }
+
+        .legal-nav {
+            padding: 20px 40px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        .legal-nav a {
+            color: var(--accent, #e84393);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 18px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .legal-nav a:hover {
+            opacity: 0.8;
+        }
+
+        .legal-container {
+            max-width: 720px;
+            margin: 0 auto;
+            padding: 60px 24px 100px;
+        }
+
+        h1 {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 32px;
+            color: #fff;
+        }
+
+        p {
+            font-size: 15px;
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 20px;
+        }
+
+        a {
+            color: #e84393;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="legal-nav">
+        <a href="index.html"><i class="fas fa-arrow-left"></i> SoundMatch</a>
+    </nav>
+    <div class="legal-container">
+        <h1>What is SoundMatch?</h1>
+
+        <p>SoundMatch initially began as a final project for our Computer & Society class.</p>
+
+        <p>Like most students, we use music streaming services daily, which sparked our curiosity about how platforms
+            like Spotify's "Discover Weekly" and Apple Music know exactly what we want to hear next.</p>
+
+        <p>As Computer Science majors, we wanted to apply the programming and math concepts we learned in
+            classes like Discrete Structures to understand and implement content-based filtering for ourselves.</p>
+
+        <p>Our first major hurdle was finding a good, clean dataset with song features, especially since raw text data
+            often contains a lot of noise.</p>
+
+        <p>From there, the main challenge was defining what makes two songs "similar" using only data, which meant
+            figuring out how to analyze songs as vectors of audio features to actually capture a song's vibe.</p>
+
+        <p>Overcoming these technical hurdles and seeing the math work in action turned this from just a school
+            assignment into a personal project we were genuinely interested in.</p>
+
+        <p>We eventually decided to expand it beyond our original custom GUI into a full, public-facing website so that
+            others could easily use it to discover new music based on their own unique tastes.</p>
+    </div>
+</body>
+
+</html>
