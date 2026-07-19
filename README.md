@@ -1,8 +1,8 @@
-# SoundMatch 🎵
+# SoundMatch
 
 An algorithmic music discovery engine that generates instant, tailored playlists using the Last.fm and Deezer APIs. Built completely client-side with zero account creation required.
 
-### 🔗 [Live Demo](https://soundmatchweb.netlify.app)
+### [Live Demo](https://soundmatchweb.netlify.app)
 
 ## Features
 
